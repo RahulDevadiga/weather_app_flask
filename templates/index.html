@@ -7,6 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>What's the weather like?</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+        $(function() {
+          $('a#clearAll').bind('click', function() {
+            $.getJSON('/clear',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+</script>
+
+
 </head>
 
 <body>
@@ -39,6 +54,9 @@
             </div>
         </div>
     </section>
+	{% if error %}
+	<p style ="color:red;text-align:center;">{{error}}</p>
+	{% endif %}
     <section class="section">
         <div class="container">
             <div class="columns">
@@ -56,7 +74,7 @@
                                     <p>
                                         <span class="title">{{ weather.city }}</span>
                                         <br>
-                                        <span class="subtitle">{{ weather.temperature }}° F</span>
+                                        <span class="subtitle">{{ weather.temperature }}° C</span>
                                         <br> {{ weather.description }}
                                     </p>
                                 </div>
@@ -68,6 +86,12 @@
             </div>
         </div>
     </section>
+	
+	{% if weather_data|length %}
+            <a href=# id=clearAll><button style = "color:red;float:right">Clear All</button></a>
+    {% endif %}
+
+</div>
     <footer class="footer">
     </footer>
 </body>
